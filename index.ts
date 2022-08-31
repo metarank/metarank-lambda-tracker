@@ -7,10 +7,7 @@ import moment from 'moment';
 
 const DDBClient = new AWS.DynamoDB.DocumentClient();
 
-export const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
-  console.log(`Event: ${JSON.stringify(event, null, 2)}`);
-  console.log(`Context: ${JSON.stringify(context, null, 2)}`);
-
+export const handler = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult> => {
   const ip = event.requestContext.identity.sourceIp;
 
   const hashedIP = createHash('md5').update(ip).digest('hex');
@@ -26,8 +23,6 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
       timestamp: moment.utc().format()
     };
 
-    console.log(`Saving: ${JSON.stringify(update, null, 2)}`);
-
     await DDBClient.put({
       TableName: process.env.DDB_TABLE,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -37,8 +32,6 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
   
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'OK'
-    })
+    body: 'OK'
   };
 };
