@@ -12,7 +12,7 @@ jobs:
       with:
         node-version: '16'
     - name: Build
-      run: npm ci && npm run build && zip -r output.zip .
+      run: npm ci && npm run lint && npm run build && zip -r output.zip .
     - name: AWS Lambda Deploy
       if: github.ref == 'refs/heads/main'
       uses: appleboy/lambda-action@master
@@ -22,4 +22,4 @@ jobs:
         aws_region: ${{ secrets.AWS_REGION }}
         function_name: ${{ secrets.AWS_LAMBDA_NAME }}
         zip_file: output.zip
-        dry_run: true
+        dubug: true
