@@ -12,9 +12,9 @@ jobs:
       with:
         node-version: '16'
     - name: Build
-      run: npm run build
+      run: npm ci && npm run build
     - name: AWS Lambda Deploy
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       uses: appleboy/lambda-action@master
       with:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
