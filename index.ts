@@ -1,4 +1,4 @@
-import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { createHash } from 'crypto';
 import geoip from 'geoip-country';
 import AWS from 'aws-sdk';
